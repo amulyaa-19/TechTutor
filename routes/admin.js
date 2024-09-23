@@ -5,7 +5,9 @@ const { adminModel } = require("../db")
 // adminRouter.use(adminMiddleware);
 
 adminRouter.post('/signup', function(req , res){
-  res.json({
+  
+      
+      res.json({
     message:"Signup endpoint"
   })
 })
