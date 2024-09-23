@@ -1,10 +1,8 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const jwt = require("jsonwebtoken");
-const JWT_SECRET = "";
-const path = require("path");
 
-const { userRouter} = require("./routes/user");
+
+const { userRouter } = require("./routes/user");
 const { courseRouter } = require("./routes/course");
 const { adminRouter } = require("./routes/admin")
 
