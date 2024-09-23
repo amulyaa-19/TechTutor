@@ -3,7 +3,7 @@ const { userModel } = require("../db");
 const userRouter = Router();
 
 const jwt = require('jsonwebtoken');
-const JWT_USER_PASSWORD = "1937";
+const { JWT_USER_PASSWORD } = require("../config");
 
 const verifyToken = (req, res, next) => {
   const token = req.headers['authorization']?.split(' ')[1]; // Extract the token
