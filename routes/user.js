@@ -3,6 +3,7 @@ const { userModel } = require("../db");
 const userRouter = Router();
 
 const jwt = require('jsonwebtoken');
+const JWT_USER_PASSWORD = "1937";
 
 const verifyToken = (req, res, next) => {
   const token = req.headers['authorization']?.split(' ')[1]; // Extract the token
@@ -38,12 +39,31 @@ const verifyToken = (req, res, next) => {
   })
   
   userRouter.post('/signin',async function(req , res){
-   
+   const { email , password } = req.body;
+
+  //  Todo: Ideally password should be hashed, and hence you cant comprare the user provided password adn the database password
+
+   const user= await userModel.findOne({
+    email:email,
+    password:password
+   });
+
+   if(user){
+    const token = jwt.sign({
+      id: user._id
+    }, JWT_USER_PASSWORD);
+
+    // Do cookie based logic
 
     res.json({
-      message:"Signin endpoint"
+      token:token
     })
-  })
+   }else{
+    res.status(403).json({
+      message:"Incorrect credentials"
+    })
+   }
+})
 
   userRouter.get("/mypurchases" , function(req,res){
     res.json({
