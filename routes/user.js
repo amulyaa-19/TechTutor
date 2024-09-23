@@ -1,9 +1,10 @@
 const { Router } = require("express");
-const { userModel } = require("../db");
+const { userModel, purchaseModel } = require("../db");
 const userRouter = Router();
 
 const jwt = require('jsonwebtoken');
 const { JWT_USER_PASSWORD } = require("../config");
+const { adminMiddleware } = require("../middleware/admin");
 
 const verifyToken = (req, res, next) => {
   const token = req.headers['authorization']?.split(' ')[1]; // Extract the token
@@ -65,9 +66,14 @@ const verifyToken = (req, res, next) => {
    }
 })
 
-  userRouter.get("/mypurchases" , function(req,res){
+  userRouter.get("/purchases" ,userMiddleware, async function(req,res){
+    const userId = req.userId;
+    const purchases = await purchaseModel.find({
+      userId
+    })
+
     res.json({
-      message:"My purchased courses"
+      purchases
     })
   })
 
