@@ -1,6 +1,7 @@
+import dotenv from 'dotenv'; 
+dotenv.config();
 const mongoose = require("mongoose");
-console.log("connected")
-mongoose.connect("mongodb+srv://srivastavaamulya19:Amulya19@cluster0.dukem.mongodb.net/techTutor")
+mongoose.connect(process.env.MONGO_URI);
 
 const Schema = mongoose.Schema;
 const ObjectId = mongoose.Types.ObjectId;
